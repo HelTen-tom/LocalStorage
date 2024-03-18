@@ -28,6 +28,7 @@ formEl.addEventListener("submit", (e) => {
   e.preventDefault();
   console.log(e.currentTarget.title.value);
   e.currentTarget.title.value = "";
+  localStorage.removeItem("inputTitle");
 });
 
 inputEl.addEventListener("input", (e) => {
@@ -36,3 +37,4 @@ inputEl.addEventListener("input", (e) => {
 });
 
 console.dir(localStorage);
+
