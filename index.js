@@ -14,27 +14,51 @@ const values = [
   { id: 13, name: "MongoDB" },
 ];
 
-const inputEl = document.querySelector(".title");
+const titleEl = document.querySelector(".title");
+const descriptionEl = document.querySelector(".description");
+
 const formEl = document.querySelector(".form");
 
-const valueLocalStorage = localStorage.getItem("inputTitle");
+// const valueLocalStorage = JSON.parse(localStorage.getItem("inputVal")) -1вариант ;
+const valueLocalStorage = localStorage.getItem("inputVal");
+const validValLS = JSON.parse(valueLocalStorage);
+console.log(valueLocalStorage);
+console.log(validValLS);
 
-if (valueLocalStorage) {
-  console.log("valueLocalStorage", valueLocalStorage);
-  inputEl.value = valueLocalStorage;
+if (validValLS) {
+  console.log(formEl.description);
+  for (const key in validValLS) {
+    console.log(key);
+    console.log(formEl[key]);
+    formEl[key].value = validValLS[key];
+  }
+
+  titleEl.value = validValLS.title;
+  descriptionEl.value = validValLS.description;
+  //   console.log("valueLocalStorage", valueLocalStorage);
+  //   inputEl.value = valueLocalStorage;
 }
 
 formEl.addEventListener("submit", (e) => {
   e.preventDefault();
-  console.log(e.currentTarget.title.value);
   e.currentTarget.title.value = "";
   localStorage.removeItem("inputTitle");
 });
 
-inputEl.addEventListener("input", (e) => {
-  console.log(e.currentTarget.value);
-  localStorage.setItem("inputTitle", e.currentTarget.value);
+titleEl.addEventListener("input", (e) => {
+  const data = {
+    title: e.currentTarget.value,
+    description: descriptionEl.value,
+  };
+  console.log(data);
+  localStorage.setItem("inputVal", JSON.stringify(data));
 });
-
+descriptionEl.addEventListener("input", (e) => {
+  const data = {
+    title: titleEl.value,
+    description: e.currentTarget.value,
+  };
+  console.log(data);
+  localStorage.setItem("inputVal", JSON.stringify(data));
+});
 console.dir(localStorage);
-
