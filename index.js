@@ -27,17 +27,16 @@ console.log(validValLS);
 
 if (validValLS) {
   console.log(formEl.description);
-  for (const key in validValLS) {
-    console.log(key);
-    console.log(formEl[key]);
-    formEl[key].value = validValLS[key];
-  }
-
-  titleEl.value = validValLS.title;
-  descriptionEl.value = validValLS.description;
-  //   console.log("valueLocalStorage", valueLocalStorage);
-  //   inputEl.value = valueLocalStorage;
+  //   for (const key in validValLS) {
+  //     // console.log(key);
+  //     // console.log(formEl[key]);
+  formEl[key].value = validValLS[key];
 }
+
+titleEl.value = validValLS.title;
+descriptionEl.value = validValLS.description;
+//   console.log("valueLocalStorage", valueLocalStorage);
+//   inputEl.value = valueLocalStorage;
 
 formEl.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -46,19 +45,21 @@ formEl.addEventListener("submit", (e) => {
 });
 
 titleEl.addEventListener("input", (e) => {
-  const data = {
-    title: e.currentTarget.value,
-    description: descriptionEl.value,
-  };
-  console.log(data);
-  localStorage.setItem("inputVal", JSON.stringify(data));
+  const data = localStorage.getItem("inputVal");
+  const ofjData = JSON.parse(data);
+  console.log(e.target.name, e.target.value);
+  console.log({...ofjData});
+  //   const data = {
+  //     title: e.currentTarget.value,
+  //     description: descriptionEl.value,
+  //       };
+  //   localStorage.setItem("inputVal", JSON.stringify(data));
 });
 descriptionEl.addEventListener("input", (e) => {
   const data = {
     title: titleEl.value,
     description: e.currentTarget.value,
   };
-  console.log(data);
   localStorage.setItem("inputVal", JSON.stringify(data));
 });
 console.dir(localStorage);
